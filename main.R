@@ -124,10 +124,13 @@ x %>% as.factor()
 
 attr(x, "labels") %>% names()
 
+# ---------------------------------------------------------------------
+# Factor con niveles ordenados a partir de numeric con atributos
+# ---------------------------------------------------------------------
+
 # GOLD
 # Crear un factor a partir de un numeric con atributo label.
 # Los niveles del nuevo factor deben coincidir simpre con los definidos en atributo label
-
 x <- rep(c(1, 0), times = c(4, 9))
 y <- rep(c(1, 0), times = c(4, 9))
 attributes(x) <- list(labels = c("No" = 0, "Si" = 1), sname = "ScoreMean")
@@ -186,31 +189,94 @@ zf %>% str()
 zf %>% unclass()
 zf %>% attributes()
 
-
 z
-z %>% as_factor
-inherits(z,"labelled")
+z %>% as_factor()
+inherits(z, "labelled")
 
-# Agregamos una clase especial
-class(x) <- "dbl+lbl"
-x %>% str()
 
-x %>% attributes()
+# ---------------------------------------------------------------------
+# Creando objeto de clase: haven_labelled
+# ---------------------------------------------------------------------
 
-yf %>% attributes()
-nyf <- yf
-class(nyf) <- "newfactor"
-nyf %>% str()
+# Clase nueva: "labelled" -> haven
+# revisar help(labelled)
+# Permite que un numeric tenga labels y label
+# Se le asigan una clase
+u <- rep(0:2, times = c(3, 5, 2))
+attr(u, "labels") <- c("no" = 0, "talvez" = 1, "sí" = 2)
+class(u) <- "labelled"
 
-table(yf)
-table(nyf)
-nyf %<>% as.factor()
+u %>% str()
 
-# haven
+inherits(u, "labelled")
+
+# Clase haven_labelled
+# Crea un objeto a partir de una clase definida en el sistema
 library(haven)
-as_factor(x) %>% str()
+h <- labelled(
+  rep(0:2, times = c(3, 5, 2)),
+  labels = c("Low" = 0, "Medium" = 1, "Hi" = 2),
+  label = "Un objeto clase haven"
+)
 
-help(as_factor)
+h %>% str()
+
+inherits(h, "haven_labelled")
+
+# ---------------------------------------------------------------------
+# Ggplot + haven_labelled
+# ---------------------------------------------------------------------
+
+xu <- labelled(
+  rep(3:1, times = c(5, 3, 2)),
+  labels = c("Sobresaliente" = 3, "Moderado" = 2, "Normal" = 1),
+  label = "Score Survey"
+)
+
+xu
+xu %>% str()
+xu %>% class()
+
+yu <- sort(rnorm(length(xu)))
+
+mi <- data.frame(x = xu, y = yu)
+
+af <- \(x){
+  as.factor(x)
+}
+
+# use_labels es de expss
+# Sin importar como, siempre toma los valores de x como numeric
+use_labels(mi, {
+  mi %>%
+    ggplot(aes(x, y, fill = as.factor(x))) +
+    geom_boxplot(alpha = .2, width = .2)
+})
+
+# convirtiendo a factor
+# Soluciona pero se hace pesado estar invocando as.factor cada vez
+af <- \(x){
+  as.factor(x)
+}
+
+mi %>%
+  ggplot(aes(af(x), y, fill = af(x))) +
+  geom_boxplot(alpha = .2, width = .2)
+
+# ---------------------------------------------------------------------
+# Clases S3
+# ---------------------------------------------------------------------
+
+
+
+
+
+help(labelled)
+
+
+
+
+
 
 
 

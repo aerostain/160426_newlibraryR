@@ -22,9 +22,11 @@ Reemplazar expss ya que no puede graficar fácilmente con ggplot.
 
 - Aprender todo sobre factores [Ok].
 - Agregar atributos a los factores [Ok].
-- Entender todo sobre atributos y sub-atributos por ejemplo en casos como dbl+lbl (de stata con haven) [].
-- Crear una clase especial similar a dbl+lbl, incluirla en un dataframe o tibble y gráficar usando ggplot [].
-- Crear una clase s7 para manejar (métodos que permitan utilizar las caracteristicas que tendrán esos nuevos factores) factores con atributos.
+- Entender todo sobre atributos y sub-atributos por ejemplo en casos como dbl+lbl (de stata con haven) [Ok].
+- Crear un factor con niveles ordenados a partir de un vector numérico con atributos [Ok].
+- Crear una clase especial similar a dbl+lbl (Haven_labelled), incluirla en un dataframe o tibble y gráficar usando ggplot [Ok].
+- Aprender lo básico para crear clases S3 [].
+- Crear una clase S3 para manejar (métodos que permitan utilizar las caracteristicas que tendrán esos nuevos factores) factores con atributos.
 - __Graficar con nuevos factores usando ggplot__ (Objetivo principal, sino funciona cambiar de idea).
 - Crear tablas para consola R con nueos factores.
 - Tablas con descripción, % y opcionespara mostrar o no (__Manejo de funciones R__).
