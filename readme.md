@@ -6,6 +6,7 @@ Hoy haremos una libería para R:
 
 - Para factores usar forcats (fct_).
 - Para trabajar con expss (solo 2 valores: númerico o caracter) usar recode.
+- dbl+lbl es una clase especial creada por haven y tiene atributos @ y sub-atributos attr.
 
 ## Objetivo
 
@@ -19,8 +20,10 @@ Reemplazar expss ya que no puede graficar fácilmente con ggplot.
 
 ## Pasos
 
-- Aprender todo sobre factores.
-- Agregar atributos a los factores.
+- Aprender todo sobre factores [Ok].
+- Agregar atributos a los factores [Ok].
+- Entender todo sobre atributos y sub-atributos por ejemplo en casos como dbl+lbl (de stata con haven) [].
+- Crear una clase especial similar a dbl+lbl, incluirla en un dataframe o tibble y gráficar usando ggplot [].
 - Crear una clase s7 para manejar (métodos que permitan utilizar las caracteristicas que tendrán esos nuevos factores) factores con atributos.
 - __Graficar con nuevos factores usando ggplot__ (Objetivo principal, sino funciona cambiar de idea).
 - Crear tablas para consola R con nueos factores.
@@ -28,6 +31,8 @@ Reemplazar expss ya que no puede graficar fácilmente con ggplot.
 - Exportar a Excel.
 - Exportar a Spss (debe ser automático).
 - Exportar a Que.
+
+
 
 ## Desarrollo
 
