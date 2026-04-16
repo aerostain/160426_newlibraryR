@@ -2,6 +2,11 @@
 
 Hoy haremos una libería para R:
 
+## Notas
+
+- Para factores usar forcats (fct_).
+- Para trabajar con expss (solo 2 valores: númerico o caracter) usar recode.
+
 ## Objetivo
 
 Reemplazar expss ya que no puede graficar fácilmente con ggplot.
@@ -9,6 +14,8 @@ Reemplazar expss ya que no puede graficar fácilmente con ggplot.
 - Crear una clase s7 que use factores con atributos.
 - Usar los factores para crear tablas automáticas según el tipo de datos (categórico, ordinal, intervalo, razon).
 - Funcione usando %>% o |>.
+- Los factores deben funcionar con analisis de regresion por ejemplo.
+- Se debe comprobar que el numero de niveles del factor sea poco.
 
 ## Pasos
 
