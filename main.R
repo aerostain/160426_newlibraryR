@@ -785,4 +785,149 @@ vec_proxy(sexo) %>% class
 
 plot(cars)
 
+# ---------------------------------------------------------------------
+# labelled
+# ---------------------------------------------------------------------
+
+new_mi_labelled <- function(x = double(), labels = NULL, label = NULL) {
+  x <- vctrs::vec_cast(x, double())
+  
+  structure(
+    x,
+    labels = labels,
+    label = label,
+    class = c("mi_labelled", "vctrs_vctr")
+  )
+}
+
+x <- mi_labelled(
+  c(1, 2, 99, NA),
+  labels = c(
+    "Sí" = 1,
+    "No" = 2,
+    "No sabe" = 99
+  )
+)
+
+
+is_labelled_na <- function(x) {
+  labs <- attr(x, "labels")
+  vals <- unclass(x)
+  
+  vals %in% labs[grepl("No sabe|No responde", names(labs))]
+}
+
+is_labelled_na(x)
+
+as.factor.mi_labelled <- function(x) {
+  labs <- attr(x, "labels")
+  vals <- vctrs::vec_data(x)  #  mejor que unclass
+  
+  base::factor(
+    vals,
+    levels = labs,
+    labels = names(labs),
+    exclude = NULL
+  )
+}
+
+x %>% as.factor
+x %>% class
+
+as.character.mi_labelled <- function(x, ...) {
+  f <- as.factor(x)
+  
+  out <- as.character(f)
+  
+  out[is.na(x)] <- "Missing"
+  
+  out
+}
+
+scale_x_labelled <- function(...) {
+  ggplot2::scale_x_discrete(
+    drop = FALSE,  # no eliminar niveles
+    ...
+  )
+}
+
+scale_x_labelled <- function(na.translate = TRUE, ...) {
+  ggplot2::scale_x_discrete(
+    na.translate = na.translate,
+    drop = FALSE,
+    ...
+  )
+}
+
+df <- tibble(
+  sexo = x
+)
+
+ggplot(df, aes(x = sexo)) +
+  geom_bar() +
+  scale_x_labelled()
+
+as.factor(x)
+as.factor.mi_labelled(x)
+
+
+# ---------------------------------------------------------------------
+# Test
+# ---------------------------------------------------------------------
+
+mpg %>% sapply(.,class)
+mpg %>% lapply(.,class)
+
+x %>% sapply(.,class)
+x %>% lapply(.,class)
+
+apply(mpg,2,class)
+
+
+apropos("lm")
+RSiteSearch("table")
+sessionInfo()
+
+object.size(mpg)
+
+apply %>% str
+
+mpg %>% str
+
+mpg %>% split(.$year) %>% 
+map(dim)
+
+with(mpg,tapply(displ,year,mean))
+
+mpg %>% summarise(across(everything(), length))
+
+
+help(tapply)
+
+# ---------------------------------------------------------------------
+# do.call
+# ---------------------------------------------------------------------
+
+ms<-list(mpg,mpg,mpg)
+do.call(rbind,ms)
+
+do.call(rbind,lapply(ms,\(x){mean(x$displ)}))
+
+do.call()
+
+mpg %>% is.factor()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # nolint end
