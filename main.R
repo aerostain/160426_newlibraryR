@@ -267,17 +267,233 @@ mi %>%
 # Clases S3
 # ---------------------------------------------------------------------
 
+# Básico
+# La clase es solo un nombre, primero se crea el objeto, sus métodos y
+# según el tipo de objeto al invocar el método este devuelve el resultado.
+
+# Creamos la estructura (Clase)
+alumno <- function(nm, ap, ed, zon) {
+  # Validación
+  stopifnot(is.character(nm), is.character(ap))
+  stopifnot(is.numeric(ed), ed >= 5, ed <= 17)
+  stopifnot(is.character(zon), length(zon) == 1)
+
+  # Estructuura de la Clase
+  structure(
+    list(nombre = nm, apellido = ap, edad = ed, zona = zon),
+    class = "alumno"
+  )
+}
+
+# Creamos el método para la clase
+# Definimos el nombre del método en el sistema
+presentacion <- function(x) {
+  UseMethod("presentacion")
+}
+
+# Creamos la operativa del método
+presentacion.alumno <- function(x) {
+  paste("Hola, mi nombre es", x$nombre, x$apellido, "y tengo", x$edad, "años.")
+}
+
+# Creamos los objetos
+a <- alumno("Ana", "Robles", 13, "A")
+presentacion(a)
+
+v <- alumno("Vanessa", "Huerta", 15, "B")
+presentacion(v)
+
+# Agregando métodos a la estructura (Clase)
+
+print.alumno <- function(x) {
+  paste("Soy", x$nombre, x$apellido)
+}
+
+# Agregando Método de Mutación Implicita
+# como R no permite se debe reasignar
+cumpleanios <- function(x) {
+  UseMethod("cumpleanios")
+}
+
+cumpleanios.alumno <- function(x) {
+  x$edad <- x$edad + 1
+  x
+}
+
+a$ed
+a <- cumpleanios(a)
+a$ed
+
+# Ejemplo cajero automático
+
+cuenta_bancaria <- function(sd, ti) {
+  stopifnot(
+    is.numeric(sd), length(sd) == 1, sd >= 0,
+    is.character(ti), length(ti) == 1
+  )
+
+  structure(
+    list(saldo = sd, titular = ti),
+    class = "cuenta_bancaria"
+  )
+}
+
+print.cuenta_bancaria <- function(x, ...) {
+  cat("Cuenta bancaria\n")
+  cat("Titular:", x$titular, "\n")
+  cat("Saldo:", x$saldo, "\n")
+}
+
+# Los ... permite extensibilidad
+# cada clase decide qué hacer con esos argumentos
+# no es el método el que decide los argumentos sino la clase
+# print(x, digits = 3)
+retirar <- function(x, monto, ...) {
+  UseMethod("retirar")
+}
+
+retirar.cuenta_bancaria <- function(x, monto) {
+  stopifnot(is.numeric(monto), monto > 0)
+
+  if (monto > x$saldo) {
+    stop("Fondos insuficientes")
+  }
+
+  x$saldo <- x$saldo - monto
+  x
+}
+
+depositar <- function(x, monto, ...) {
+  UseMethod("depositar")
+}
+
+depositar.cuenta_bancaria <- function(x, monto) {
+  stopifnot(is.numeric(monto), monto > 0)
+
+  x$saldo <- x$saldo + monto
+  x
+}
+
+saldo <- function(x) {
+  UseMethod("saldo")
+}
+
+saldo.cuenta_bancaria <- function(x) {
+  x$saldo
+}
+
+# Para uso interno
+format.cuenta_bancaria <- function(x, ...) {
+  paste0(x$titular, " (Saldo: ", x$saldo, ")")
+}
 
 
-
+cliente1 <- cuenta_bancaria(2500, "Ana Robles")
+print(cliente1)
+cliente1 <- retirar(cliente1, 300)
+print(cliente1)
+cliente1 <- depositar(cliente1, 500)
+print(cliente1)
+saldo(cliente1)
+format(cliente1)
 
 help(labelled)
+help(length)
 
 
 
+# ---------------------------------------------------------------------
+# Temporal
+# ---------------------------------------------------------------------
+
+library(vctrs)
+library(dplyr)
+library(ggplot2)
 
 
+new_porcentaje <- function(x = double(), label = NULL) {
+  # Normalizar SIEMPRE
+  x <- vec_cast(x, double())
+  
+  # Validar tipo
+  vec_assert(x, double())
+  
+  # Validar rango
+  if (any(x < 0 | x > 1, na.rm = TRUE)) {
+    stop("Valores deben estar entre 0 y 1")
+  }
+  
+  structure(
+    x,
+    label = label,
+    class = c("porcentaje", "vctrs_vctr")
+  )
+}
 
+porcentaje <- function(x, label = NULL) {
+  new_porcentaje(x, label)
+}
 
+format.porcentaje <- function(x, ...) {
+  paste0(round(unclass(x) * 100, 1), "%")
+}
+
+print.porcentaje <- function(x, ...) {
+  cat(format(x), "\n")
+}
+
+vec_ptype2.porcentaje.porcentaje <- function(x, y, ...) {
+  new_porcentaje()
+}
+
+vec_cast.porcentaje.porcentaje <- function(x, to, ...) {
+  x
+}
+
+vec_ptype2.porcentaje.double <- function(x, y, ...) double()
+vec_ptype2.double.porcentaje <- function(x, y, ...) double()
+
+vec_cast.double.porcentaje <- function(x, to, ...) {
+  unclass(x)
+}
+
+vec_cast.porcentaje.double <- function(x, to, ...) {
+  new_porcentaje(x)
+}
+
+`+.porcentaje` <- function(e1, e2) {
+  # convertir e2 correctamente
+  if (inherits(e2, "porcentaje")) {
+    e2 <- vec_cast(e2, e1)
+    val <- unclass(e1) + unclass(e2)
+  } else {
+    e2 <- vec_cast(e2, double())
+    val <- unclass(e1) + e2
+  }
+  
+  new_porcentaje(val, label = attr(e1, "label"))
+}
+
+x <- porcentaje(c(0.2, 0.5, 0.8))
+
+x + 0.1
+
+df <- tibble(
+  categoria = c("A", "B", "C"),
+  valor = porcentaje(c(0.2, 0.5, 0.8))
+)
+
+df %>%
+  mutate(
+    valor2 = valor + 0.1
+  )
+
+scale_y_porcentaje <- function() {
+  scale_y_continuous(labels = function(x) paste0(x * 100, "%"))
+}
+
+ggplot(df, aes(x = categoria, y = valor)) +
+  geom_col() +
+  scale_y_porcentaje()
 
 # nolint end
