@@ -414,15 +414,15 @@ library(ggplot2)
 new_porcentaje <- function(x = double(), label = NULL) {
   # Normalizar SIEMPRE
   x <- vec_cast(x, double())
-  
+
   # Validar tipo
   vec_assert(x, double())
-  
+
   # Validar rango
   if (any(x < 0 | x > 1, na.rm = TRUE)) {
     stop("Valores deben estar entre 0 y 1")
   }
-  
+
   structure(
     x,
     label = label,
@@ -470,7 +470,7 @@ vec_cast.porcentaje.double <- function(x, to, ...) {
     e2 <- vec_cast(e2, double())
     val <- unclass(e1) + e2
   }
-  
+
   new_porcentaje(val, label = attr(e1, "label"))
 }
 
@@ -495,5 +495,294 @@ scale_y_porcentaje <- function() {
 ggplot(df, aes(x = categoria, y = valor)) +
   geom_col() +
   scale_y_porcentaje()
+
+
+# ---------------------------------------------------------------------
+# summarise
+# ---------------------------------------------------------------------
+
+x <- porcentaje(.15)
+
+x %>% unclass()
+x %>% str()
+
+factor(1:3) %>% unclass() + 1
+
+
+mean.porcentaje <- function(x, ..., na.rm = FALSE) {
+  val <- mean(unclass(x), ..., na.rm = na.rm)
+  new_porcentaje(val)
+}
+
+sum.porcentaje <- function(x, ..., na.rm = FALSE) {
+  val <- sum(unclass(x), ..., na.rm = na.rm)
+  new_porcentaje(val)
+}
+
+mean(c(x, x + .5))
+sum(c(x, x + .5))
+
+x <- porcentaje(c(0.2, 0.5, 0.8))
+
+mean(x)
+sum(x)
+
+df %>%
+  summarise(
+    prom = mean(valor)
+  )
+
+x <- sample(seq(0, 1, 0.1), 15, replace = T)
+g <- rep(LETTERS[1:3], each = 5)
+m <- data.frame(x = porcentaje(x), g = g)
+
+m %>%
+  group_by(g) %>%
+  summarise(xp = mean(x))
+
+# Regresion
+
+vec_cast.double.porcentaje <- function(x, to, ...) {
+  unclass(x)
+}
+
+vec_arith.porcentaje <- function(op, x, y, ...) {
+  UseMethod("vec_arith.porcentaje", y)
+}
+
+vec_arith.porcentaje.porcentaje <- function(op, x, y, ...) {
+  x_val <- unclass(x)
+  y_val <- unclass(y)
+
+  out <- switch(op,
+    "+" = x_val + y_val,
+    "-" = x_val - y_val,
+    "*" = x_val * y_val,
+    "/" = x_val / y_val,
+    stop("Operación no soportada")
+  )
+
+  new_porcentaje(out)
+}
+
+vec_arith.porcentaje.double <- function(op, x, y, ...) {
+  x_val <- unclass(x)
+
+  out <- switch(op,
+    "+" = x_val + y,
+    "-" = x_val - y,
+    "*" = x_val * y,
+    "/" = x_val / y,
+    stop("Operación no soportada")
+  )
+
+  new_porcentaje(out)
+}
+
+vec_arith.double.porcentaje <- function(op, x, y, ...) {
+  y_val <- unclass(y)
+
+  out <- switch(op,
+    "+" = x + y_val,
+    "-" = x - y_val,
+    "*" = x * y_val,
+    "/" = x / y_val,
+    stop("Operación no soportada")
+  )
+
+  new_porcentaje(out)
+}
+
+df2 <- tibble(
+  x = 1:3,
+  y = porcentaje(c(0.2, 0.5, 0.8))
+)
+
+lm(y ~ x, data = df2)
+lm(as.numeric(y) ~ x, data = df2)
+
+
+# ---------------------------------------------------------------------
+# Crear tipo labelled de haven
+# ---------------------------------------------------------------------
+
+library(vctrs)
+
+new_mi_labelled <- function(x = double(), labels = NULL, label = NULL) {
+  x <- vec_cast(x, x) # flexible
+
+  # validar labels
+  if (!is.null(labels)) {
+    if (!is.numeric(labels) && !is.character(labels)) {
+      stop("labels deben ser numeric o character")
+    }
+  }
+
+  structure(
+    x,
+    labels = labels,
+    label = label,
+    class = c("mi_labelled", "vctrs_vctr")
+  )
+}
+
+
+mi_labelled <- function(x, labels = NULL, label = NULL) {
+  new_mi_labelled(x, labels, label)
+}
+
+x <- mi_labelled(
+  c(1, 2, 1, NA),
+  labels = c("Sí" = 1, "No" = 2),
+  label = "Pregunta 1"
+)
+
+print.mi_labelled <- function(x, ...) {
+  cat("<mi_labelled>\n")
+  cat("Label:", attr(x, "label"), "\n")
+  cat("Values:\n")
+  print(unclass(x))
+  cat("Labels:\n")
+  print(attr(x, "labels"))
+}
+
+get_labels <- function(x) {
+  attr(x, "labels")
+}
+
+get_label <- function(x) {
+  attr(x, "label")
+}
+
+as_factor.mi_labelled <- function(x, ...) {
+  labs <- attr(x, "labels")
+  vals <- unclass(x)
+  
+  factor(
+    vals,
+    levels = labs,
+    labels = names(labs)
+  )
+}
+
+x
+x %>% as_factor
+x %>% get_label()
+x %>% get_labels()
+x %>% class()
+x %>% str()
+
+vec_ptype2.mi_labelled.mi_labelled <- function(x, y, ...) {
+  x
+}
+
+vec_cast.mi_labelled.mi_labelled <- function(x, to, ...) {
+  x
+}
+
+vec_cast.double.mi_labelled <- function(x, to, ...) {
+  unclass(x)
+}
+
+vec_arith.mi_labelled <- function(op, x, y, ...) {
+  val <- vec_arith(op, unclass(x), y)
+  new_mi_labelled(val, attr(x, "labels"), attr(x, "label"))
+}
+
+to_factor <- function(x, drop_na = TRUE) {
+  f <- as_factor(x)
+  
+  if (drop_na) {
+    f <- droplevels(f)
+  }
+  
+  f
+}
+
+vec_restore.mi_labelled <- function(x, to, ...) {
+  structure(
+    x,
+    labels = attr(to, "labels"),
+    label = attr(to, "label"),
+    class = class(to)
+  )
+}
+
+x %>% to_factor
+
+df <- tibble::tibble(
+  sexo = mi_labelled(
+    c(1,2,1,NA),
+    labels = c("Hombre" = 1, "Mujer" = 2)
+  )
+)
+
+df %>%
+  dplyr::mutate(
+    sexo = as_factor(sexo)
+  )
+
+
+print(df)
+
+# ---------------------------------------------------------------------
+# mi_labelled  + ggplot sin convertir a factor
+# ---------------------------------------------------------------------
+
+library(vctrs)
+
+new_mi_labelled <- function(x, labels = NULL, label = NULL) {
+  x <- vec_cast(x, double()) 
+  
+  structure(
+    x,
+    labels = labels,
+    label = label,
+    class = c("mi_labelled", "vctrs_vctr")
+  )
+}
+
+mi_labelled <- function(x, labels = NULL, label = NULL) {
+  new_mi_labelled(x, labels, label)
+}
+
+vec_proxy.mi_labelled <- function(x, ...) {
+  labs <- attr(x, "labels")
+  vals <- unclass(x)
+  
+  factor(
+    vals,
+    levels = labs,
+    labels = names(labs)
+  )
+}
+
+print.mi_labelled <- function(x, ...) {
+  print(vec_proxy(x))
+}
+
+library(ggplot2)
+library(tibble)
+
+df <- tibble(
+  sexo = mi_labelled(
+    c(1, 2, 1, NA),
+    labels = c("Hombre" = 1, "Mujer" = 2)
+  )
+)
+
+sexo %>% class
+sexo %>% str
+
+ggplot(df, aes(x = sexo)) +
+  geom_bar()
+
+ggplot(df, aes(x = factor(sexo))) +
+  geom_bar()
+
+vec_proxy(df$sexo)
+vec_proxy(sexo) %>% class
+
+plot(cars)
 
 # nolint end
