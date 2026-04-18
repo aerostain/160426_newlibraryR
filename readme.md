@@ -12,6 +12,10 @@ Proyecto R pkg para reemplazar expss porque requiere convertir a factor en ggplo
 
 - [Link principal ChatGPT: Factores y S3](https://chatgpt.com/c/69e0d82a-9d10-83e9-913f-42ded1fc3138)
 
+- [dplyr para filas y columnas básico](https://chatgpt.com/c/69e25833-c968-83e9-9e14-479ded577d77)
+
+- [Como organizar scripts de R](https://chatgpt.com/c/69e24650-4b10-83e9-a235-019ae7e880cb)
+
 ## Objetivo Especificos
 
 Reemplazar expss ya que no puede graficar fácilmente con ggplot.
@@ -40,14 +44,15 @@ Reemplazar expss ya que no puede graficar fácilmente con ggplot.
 
 ## Tareas 
 
+### 18/04/26
+
+- Funciones dplyr/ggplot.
+- Manejar Datos Perdidos (NA,98,99).
+
 ### 17/04/26
 
 - Manejar Factores (forcats, if, case_when).
-- Manejar Datos Perdidos (NA,98,99).
-- Funciones dplyr.
-- Funciones ggplot.
-- Rpkg con Data.
-- Rpkg funciones dplyr y ggplot.
+- Dplyr básico.
 
 ### 16/04/26
 
