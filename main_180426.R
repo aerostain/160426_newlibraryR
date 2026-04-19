@@ -474,12 +474,60 @@ str_view("eda,d: 2,5 años*", "(?<=\\,).*?(?=,)")
 
 str_replace_all("Holà este es úna", "[^[:alnum:]áéíóúñ ]", "")
 
+# ---------------------------------------------------------------------
+# Rpkg Data y Función ggplot
+# ---------------------------------------------------------------------
+
+library(remotes)
+install_github("https://github.com/aerostain/250414_R_PackData.git")
+library(myLibData140425)
+ventas
+clientes
+
+help(clientes)
+help(ventas)
+
+library(myRpkgFunc180426)
+
+m %>% str
+myboxplot(m,cyl,displ)
+myboxplot(m,fl,displ)
 
 
+# ---------------------------------------------------------------------
+#  export spss
+# ---------------------------------------------------------------------
+
+install.packages("ImportExport")
+library(ImportExport)
+
+st %>% str
+product_test %>% str
+product_test %>% str
+spss_export(product_test)
+write_sav(product_test, "my_data.sav")
+write_sav(st, "my_data.sav")
+
+st2<-st
+st2$vs %<>% factor
+st2 %>% str
+attr(st2$vs,"label")<-"Engine"
+attr(st2$vs, "na_values") <- 999
+levels(st2$vs)<-c("V-Engine","Straight-Engine")
+write_sav(st2, "my_data2.sav",)
+
+st2$cyl<-labelled_spss(st2$cyl,na_values=c(97,99))
+st2$vs<-labelled_spss(st2$vs,c("V-Engine"=1,"Straight-Engine"=2),na_values=c(97,99),label="Engine")
 
 
+# Si los Na  son definidos en .sav e importados a R
+# si usas user_na si se muestran como atributos en R
 
+x<-haven::read_sav("my_data2.sav",user_na = TRUE)
+x %>% str
+write_sav(x, "my_data3.sav")
 
-
+help(read_sav)
+help(write_sav)
 
 # nolint end

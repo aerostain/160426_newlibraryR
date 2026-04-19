@@ -22,17 +22,23 @@ Proyecto R pkg para reemplazar expss porque requiere convertir a factor en ggplo
 
 - [ChatGPT: Funciones dplyr, ggplot y expss básicas sin S3 (usa {{ }}) o eval(substitute(...))](https://chatgpt.com/c/69e36a3d-0194-83e9-bb1e-34990481e2ce)
 
-- [ChatGPT: NA, 98, 99 y Regex, grep, gsub, str_](https://chatgpt.com/c/69e4552e-671c-83e9-b0cd-9dcbe228f7d1)
+- [ChatGPT: NA, 98, 99 y Regex, grep, gsub, str_, exportar/importar .sav con NA](https://chatgpt.com/c/69e4552e-671c-83e9-b0cd-9dcbe228f7d1)
+
+## Links Secundarios
+
+- [ChatGPT: Solución a errores al crear Rpkg de datos (tíldes y check())](https://chatgpt.com/c/69e47433-5c90-83e9-9478-2b8fbaebe180)
+
+- [Atributos para exportar .sav](https://chatgpt.com/c/69e48c8c-ec04-83e9-b912-1369d6d5aa20)
 
 ## Objetivo Especificos
 
 Reemplazar expss ya que no puede graficar fácilmente con ggplot.
 
-- Crear una clase S3 que use factores con atributos, (Según chatGPT s· es mas sencillo y popular que S7).
-- Usar los factores para crear tablas automáticas según el tipo de datos (categórico, ordinal, intervalo, razon).
+- Crear una clase S3 que use factores con atributos, (Según chatGPT S3 es mas sencillo y popular que S7).
+- Usar los factores para crear tablas automáticas según el tipo de datos (categórico, ordinal, intervalo, razón).
 - Se debe comprobar que el numero de niveles del factor sea poco al convertirlo en un objeto `mi_labelled`.
 - Funcione usando %>% o |>. [Ok]
-- Los factores deben funcionar con analisis de regresion por ejemplo [Ok].
+- Los factores deben funcionar con análisis de regresion por ejemplo [Ok].
 
 ## Pasos
 
@@ -60,6 +66,12 @@ Reemplazar expss ya que no puede graficar fácilmente con ggplot.
 - pivot_wider, pivot_longer.
 - join.
 - respuesta multiple expss.
+- Funciones expss.
+- Formartos para mostrar valores (%).
+- Formato para exportar dataframe a .sav (labelled_spss).
+- Crear tabla para consola similar a expss.
+- Función para organizar la data después de importar de spss.
+- Función para organizar la data antes de exportar de spss.
 
 ### 18/04/26
 
@@ -67,7 +79,10 @@ Reemplazar expss ya que no puede graficar fácilmente con ggplot.
 - Funciones expss eval(substitute(...)).
 - Funciones dinámicas usando eval(parse(text=txt)).
 - Manejar Datos Perdidos (NA,98,99).
-- Regex, grep, gsub, str_
+- Regex, grep, gsub, str_.
+- Rpkg data.
+- Rpkg función ggplot.
+- Exportar e importar .sav con NA (labelled_spss)
 
 ### 17/04/26
 
