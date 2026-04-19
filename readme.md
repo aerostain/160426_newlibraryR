@@ -8,13 +8,19 @@ Proyecto R pkg para reemplazar expss porque requiere convertir a factor en ggplo
 - Para trabajar con expss (solo 2 valores: númerico o caracter) usar recode.
 - dbl+lbl es una clase especial creada por haven y tiene atributos @ y sub-atributos attr.
 
+## Pendientes
+
+- reframe - dplyr.
+
 ## Links
 
-- [Link principal ChatGPT: Factores y S3](https://chatgpt.com/c/69e0d82a-9d10-83e9-913f-42ded1fc3138)
+- [Link principal - ChatGPT: Factores, attributes y S3](https://chatgpt.com/c/69e0d82a-9d10-83e9-913f-42ded1fc3138)
 
-- [dplyr para filas y columnas básico](https://chatgpt.com/c/69e25833-c968-83e9-9e14-479ded577d77)
+- [ChatGPT: dplyr para filas y columnas básico](https://chatgpt.com/c/69e25833-c968-83e9-9e14-479ded577d77)
 
-- [Como organizar scripts de R](https://chatgpt.com/c/69e24650-4b10-83e9-a235-019ae7e880cb)
+- [ChatGPT: Como organizar scripts de R](https://chatgpt.com/c/69e24650-4b10-83e9-a235-019ae7e880cb)
+
+- [ChatGPT: Funciones dplyr, ggplot y expss básicas sin S3 (usa {{ }}) o eval(substitute(...))](https://chatgpt.com/c/69e36a3d-0194-83e9-bb1e-34990481e2ce)
 
 ## Objetivo Especificos
 
