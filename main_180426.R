@@ -423,6 +423,61 @@ product_test %>%
 library(data.table)
 
 
+install.packages("skimr")
+library(skimr)
+skimr::skim(mpg)
+
+# ---------------------------------------------------------------------
+# Regex, grep, gsub, str_
+# ---------------------------------------------------------------------
+
+library(stringr)
+x<-c("Hola,  mi nombre es Ana Diaz. ")
+
+str_squish(x)
+str_to_lower(x)
+str_to_upper(x)
+str_to_title(x)
+
+gsub(" ","",str_to_title(x))
+
+grep("ana",x,ignore.case = TRUE,value = TRUE)
+
+str_sub(x,1,4)
+
+[^a-zA-Z0-9 ]
+
+grep("[0-9]",x,ignore.case = TRUE,value = TRUE)
+
+str_view(x,"[^a-zA-Z0-9 ]",match = TRUE)
+
+str_view("(999) - , 9785626", "\\d")
+str_view("(999) - , 9785626", "\\D")
+str_remove_all("(999) - , 9785626", "\\D")
+str_remove_all("(999) - , 9785626", "[^0-9()]")
+str_remove_all("+51 - 99333  7037", "[^0-9+]")
+
+
+str_view("47.35,", ".")
+str_view("47.35,", ",")
+str_view("47.35,", "\\.")
+str_view("47.35,", "\\,")
+
+str_view("Ana Diaz Robles", "^A")
+str_view("Ana Diaz Robles", "s$")
+str_view("Ana Diaz Robles", "\\s")
+
+str_view("edad: 25 años", "\\d+")
+str_extract("edad: 25 años", "\\d+")
+
+str_view("eda,d: 2,5 años*", "(?<=\\,).*?(?=,)")
+
+str_replace_all("Holà este es úna", "[^[:alnum:]áéíóúñ ]", "")
+
+
+
+
+
 
 
 

@@ -22,6 +22,8 @@ Proyecto R pkg para reemplazar expss porque requiere convertir a factor en ggplo
 
 - [ChatGPT: Funciones dplyr, ggplot y expss básicas sin S3 (usa {{ }}) o eval(substitute(...))](https://chatgpt.com/c/69e36a3d-0194-83e9-bb1e-34990481e2ce)
 
+- [ChatGPT: NA, 98, 99 y Regex, grep, gsub, str_](https://chatgpt.com/c/69e4552e-671c-83e9-b0cd-9dcbe228f7d1)
+
 ## Objetivo Especificos
 
 Reemplazar expss ya que no puede graficar fácilmente con ggplot.
@@ -38,7 +40,7 @@ Reemplazar expss ya que no puede graficar fácilmente con ggplot.
 - Agregar atributos a los factores `attributes()` [Ok].
 - Entender todo sobre atributos y sub-atributos por ejemplo en casos como dbl+lbl (de stata con haven) [Ok].
 - Crear un factor con niveles ordenados a partir de un vector numérico con atributos [Ok].
-- Crear una clase especial similar a dbl+lbl (Haven_labelled), incluirla en un dataframe o tibble y gráficar usando ggplot [Ok].
+- Crear una clase especial similar a dbl+lbl (haven_labelled), incluirla en un dataframe o tibble y gráficar usando ggplot [Ok].
 - Aprender lo básico para crear clases S3 [Ok].
 - Crear una clase S3 para manejar factores con atributos, crear métodos que permitan utilizar las caracteristicas que tendrán esos nuevos factores [Ok].
 - __Graficar con nuevos factores usando ggplot__ (Objetivo principal, sino funciona cambiar de idea) [Ok].
@@ -48,12 +50,24 @@ Reemplazar expss ya que no puede graficar fácilmente con ggplot.
 - Exportar a Spss (debe ser automático).
 - Exportar a Que.
 
-## Tareas 
+## Tareas / Avances
+
+### 19/04/26
+
+- Rpkg data.
+- Rpkg funciones.
+- Rpkg data + funciones + S3.
+- pivot_wider, pivot_longer.
+- join.
+- respuesta multiple expss.
 
 ### 18/04/26
 
 - Funciones dplyr/ggplot.
+- Funciones expss eval(substitute(...)).
+- Funciones dinámicas usando eval(parse(text=txt)).
 - Manejar Datos Perdidos (NA,98,99).
+- Regex, grep, gsub, str_
 
 ### 17/04/26
 
@@ -62,6 +76,11 @@ Reemplazar expss ya que no puede graficar fácilmente con ggplot.
 
 ### 16/04/26
 
-- Cumplimiento de los "Pasos" marcados al inicio.
+- Repaso de factores.
+- Attributes.
+- Transformar un numeric con atributos a un factor con levelss.
+- Clase similar a haven_labelled para manejar factores usando S3 
+- S3 básico/intermedio.
+- Crear una clase similar a haven_labelled para que grafique automáticamente en ggplot.
 
 
