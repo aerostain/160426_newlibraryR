@@ -527,7 +527,27 @@ x<-haven::read_sav("my_data2.sav",user_na = TRUE)
 x %>% str
 write_sav(x, "my_data3.sav")
 
+x$vs %>% class
+x$vs %>% attributes()
+
+mtcars
+
+xx<-x
+
+xx %>% str
+xx$vs %>% as.factor
+xx %>% class
+
 help(read_sav)
 help(write_sav)
+
+x<-rep(0:2,times=c(3,2,3))
+y<-factor(x)
+
+levels(y)<-c("Low","Med","Hi")
+
+y %>% as.numeric
+
+
 
 # nolint end

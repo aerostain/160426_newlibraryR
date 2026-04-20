@@ -30,6 +30,8 @@ Proyecto R pkg para reemplazar expss porque requiere convertir a factor en ggplo
 
 - [Atributos para exportar .sav](https://chatgpt.com/c/69e48c8c-ec04-83e9-b912-1369d6d5aa20)
 
+- [Función histograma](https://chatgpt.com/c/69e5420d-8a04-83e9-a35d-05f2a1293fa1)
+
 ## Objetivo Especificos
 
 Reemplazar expss ya que no puede graficar fácilmente con ggplot.
@@ -60,16 +62,17 @@ Reemplazar expss ya que no puede graficar fácilmente con ggplot.
 
 ### 19/04/26
 
+- Función histograma experto.
+- Crear tabla para consola similar a expss.
+- Formatos para mostrar valores (%).
+- Funciones expss.
+- respuesta multiple expss.
+- pivot_wider, pivot_longer.
+- join.
 - Rpkg data.
 - Rpkg funciones.
 - Rpkg data + funciones + S3.
-- pivot_wider, pivot_longer.
-- join.
-- respuesta multiple expss.
-- Funciones expss.
-- Formartos para mostrar valores (%).
 - Formato para exportar dataframe a .sav (labelled_spss).
-- Crear tabla para consola similar a expss.
 - Función para organizar la data después de importar de spss.
 - Función para organizar la data antes de exportar de spss.
 
