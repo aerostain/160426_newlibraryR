@@ -107,9 +107,11 @@ intervalos2 <- function(y) {
   print(tabf)
 
   # Histograma tipo columnas
-  barplot(freq, names.arg = levels(clases), las = 2,
-          main = "Histograma", ylab = "Frecuencia",
-          col = "lightblue", border = "black")
+  barplot(freq,
+    names.arg = levels(clases), las = 2,
+    main = "Histograma", ylab = "Frecuencia",
+    col = "lightblue", border = "black"
+  )
 }
 
 intervalos2(y)
@@ -161,12 +163,13 @@ intervalos3 <- function(y, dec = 2) {
 
   # Gráfico
   barplot(freq,
-          names.arg = etiquetas,
-          las = 2,
-          col = "lightblue",
-          border = "black",
-          main = "Histograma",
-          ylab = "Frecuencia")
+    names.arg = etiquetas,
+    las = 2,
+    col = "lightblue",
+    border = "black",
+    main = "Histograma",
+    ylab = "Frecuencia"
+  )
 }
 
 intervalos3(y)
@@ -227,9 +230,11 @@ intervalos4 <- function(y, dec = 2, superponer = FALSE) {
   df <- data.frame(y = y)
 
   g_hist <- ggplot(df, aes(x = y)) +
-    geom_histogram(breaks = breaks,
-                   fill = "lightblue",
-                   color = "black") +
+    geom_histogram(
+      breaks = breaks,
+      fill = "lightblue",
+      color = "black"
+    ) +
     labs(title = "Histograma", y = "Frecuencia")
 
   g_dens <- ggplot(df, aes(x = y)) +
@@ -240,16 +245,19 @@ intervalos4 <- function(y, dec = 2, superponer = FALSE) {
     # Escalamos densidad a frecuencia
     g_sup <- ggplot(df, aes(x = y)) +
       geom_histogram(aes(y = ..count..),
-                     breaks = breaks,
-                     fill = "lightblue",
-                     color = "black") +
+        breaks = breaks,
+        fill = "lightblue",
+        color = "black"
+      ) +
       geom_density(aes(y = ..density.. * n * (breaks[2] - breaks[1])),
-                   color = "red", linewidth = 1) +
-      labs(title = "Histograma + Densidad",
-           y = "Frecuencia")
+        color = "red", linewidth = 1
+      ) +
+      labs(
+        title = "Histograma + Densidad",
+        y = "Frecuencia"
+      )
 
     print(g_sup)
-
   } else {
     # Dos gráficos lado a lado
     par(mfrow = c(1, 2))
@@ -259,15 +267,14 @@ intervalos4 <- function(y, dec = 2, superponer = FALSE) {
   }
 }
 
-intervalos4(y,superponer = TRUE)
-intervalos4(z$X1,superponer = TRUE)
+intervalos4(y, superponer = TRUE)
+intervalos4(z$X1, superponer = TRUE)
 
 # ---------------------------------------------------------------------
 # Tablas expss con guíones
 # ---------------------------------------------------------------------
 
 print_tabla <- function(df) {
-
   # Convertir todo a texto
   df[] <- lapply(df, as.character)
 
@@ -284,9 +291,13 @@ print_tabla <- function(df) {
   fmt_fila <- function(fila) {
     paste0(
       "| ",
-      paste(mapply(function(x, w) format(x, width = w, justify = "left"),
-                   fila, ancho),
-            collapse = " | "),
+      paste(
+        mapply(
+          function(x, w) format(x, width = w, justify = "left"),
+          fila, ancho
+        ),
+        collapse = " | "
+      ),
       " |"
     )
   }
@@ -295,7 +306,8 @@ print_tabla <- function(df) {
   linea <- paste0(
     "+-",
     paste(sapply(ancho, function(w) paste(rep("-", w), collapse = "")),
-          collapse = "-+-"),
+      collapse = "-+-"
+    ),
     "-+"
   )
 
@@ -312,9 +324,79 @@ print_tabla <- function(df) {
 }
 
 print_tabla(tabf)
-print_tabla(mtcars %>% head)
+print_tabla(mtcars %>% head())
+
+library(scales)
+x <- c(0.1, 0.555, 1.2)
+
+# Standard formatting
+percent(x)
+# Output: "10%" "56%" "120%"
+
+# Adjusting accuracy (e.g., 2 decimal places)
+percent(x, accuracy = 0.01)
+# Output: "10.00%" "55.50%" "120.00%"
+
+rpois(100, 5) %>% unique()
+
+attr(x, "type") <- "intervalo"
+x
+
+
+path <- "C:\\Users\\R1ck7\\Downloads\\BaseDeDatos\\Analizing Sensory Data with R\\dataset book"
+dir(path) %>% matrix()
+
+npath <- file.path(path, "lipsticks.csv")
+lipsticks <- read.csv(npath)
+lipsticks %>% str()
+lipsticks %>%
+  names() %>%
+  matrix()
+lipsticks %>% dim()
+lipsticks %>% view()
+lipsticks %>% fix()
+lp <- lipsticks
+
+lp[, 41] %>% str()
+lp[, 41] %>% unique()
+lp[, 41] %>% cro()
+nf <- lp[, 41] %>% factor(, levels = c("not at all", "very little", "slightly", "moderatly", "a lot"))
+nf %>% cro()
+nf %>% attributes()
+
+lp[, 1] %>% hist()
+lp[, 156] %>% hist()
+lp[, 64] %>% cro()
+lp[, 97] %>% cro()
+
+npath <- file.path(path, "perfumes_liking_small.csv")
+perf <- read.csv(npath)
+perf %>% str()
+perf
+
+npath <- file.path(path, "perfumes_liking.csv")
+shell.exec(npath)
+perfull <- read.csv(npath, header = TRUE, sep = ",", quote = "\"", fileEncoding = "latin1")
+perfull %>% str()
+perfull %>% count(consumer)
+
+
+# Objeto .rda
+tmp <- sapply(lp, class)
+a <- tmp %>% names()
+b <- tmp %>% as.character()
+z <- cbind(a, b)
+save(lipsticks, file = "Files/lipsticks.rda")
 
 
 
+
+# Opciones de Consola
+options("width" = 10000)
+getOption("width")
+
+# Procesamiento
+mtcars %>% str()
+mtcars %>% info()
 
 # nolint end

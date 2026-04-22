@@ -24,13 +24,23 @@ Proyecto R pkg para reemplazar expss porque requiere convertir a factor en ggplo
 
 - [ChatGPT: NA, 98, 99 y Regex, grep, gsub, str_, exportar/importar .sav con NA](https://chatgpt.com/c/69e4552e-671c-83e9-b0cd-9dcbe228f7d1)
 
+- [Videos sobre JAR y otros](https://www.youtube.com/@aurorapintor2236)
+
+- [Diccionario de terminos en Evaluación Sensorial](https://www.sensorysociety.org/knowledge/sspwiki/Pages/Title-List.aspx)
+
+- [XLSTAT lista de análisis](https://www.xlstat.com/solutions/features/penalty-analysis)
+
+- [XLSTAT análisi de penalidades](https://community.lumivero.com/s/article/6651-penalty-analysis-excel-tutorial?language=en_US)
+
 ## Links Secundarios
 
-- [ChatGPT: Solución a errores al crear Rpkg de datos (tíldes y check())](https://chatgpt.com/c/69e47433-5c90-83e9-9478-2b8fbaebe180)
+- [ChatGPT: Solución a errores al crear Rpkg de datos (tíldes y check()) y atributos na_values y format.spss](https://chatgpt.com/c/69e47433-5c90-83e9-9478-2b8fbaebe180)
 
 - [Atributos para exportar .sav](https://chatgpt.com/c/69e48c8c-ec04-83e9-b912-1369d6d5aa20)
 
-- [Función histograma](https://chatgpt.com/c/69e5420d-8a04-83e9-a35d-05f2a1293fa1)
+- [Función histograma, tabla similar a expss con guiones](https://chatgpt.com/c/69e5420d-8a04-83e9-a35d-05f2a1293fa1)
+
+[- Conversion data producto de expss usando dplyr - pivot longer](https://chatgpt.com/c/69e4f476-0d30-83e9-887a-4c89e4a0983c)
 
 ## Objetivo Especificos
 
@@ -60,11 +70,8 @@ Reemplazar expss ya que no puede graficar fácilmente con ggplot.
 
 ## Tareas / Avances
 
-### 19/04/26
+### 20/04/26
 
-- Función histograma experto.
-- Crear tabla para consola similar a expss.
-- Formatos para mostrar valores (%).
 - Funciones expss.
 - respuesta multiple expss.
 - pivot_wider, pivot_longer.
@@ -75,6 +82,12 @@ Reemplazar expss ya que no puede graficar fácilmente con ggplot.
 - Formato para exportar dataframe a .sav (labelled_spss).
 - Función para organizar la data después de importar de spss.
 - Función para organizar la data antes de exportar de spss.
+
+### 19/04/26
+
+- Función histograma experto.
+- Crear tabla para consola similar a expss.
+- Formatos para mostrar valores (%).
 
 ### 18/04/26
 
