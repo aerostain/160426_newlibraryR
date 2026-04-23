@@ -16,6 +16,10 @@ Proyecto R pkg para reemplazar expss porque requiere convertir a factor en ggplo
 
 - [Link principal - ChatGPT: Factores, attributes y S3](https://chatgpt.com/c/69e0d82a-9d10-83e9-913f-42ded1fc3138)
 
+- [Link principal - ChatGPT: Análisis de Penalidades JAR](https://chatgpt.com/c/69e838fc-4064-83e9-95a5-3228aca77a93)
+
+- [Link principal - ChatGPT: Regresion con R variables ordinales y JAR](https://chatgpt.com/c/69e85dd9-7c48-83e9-9b87-2270d5111931)
+
 - [ChatGPT: dplyr para filas y columnas básico](https://chatgpt.com/c/69e25833-c968-83e9-9e14-479ded577d77)
 
 - [ChatGPT: Como organizar scripts de R](https://chatgpt.com/c/69e24650-4b10-83e9-a235-019ae7e880cb)
@@ -30,7 +34,9 @@ Proyecto R pkg para reemplazar expss porque requiere convertir a factor en ggplo
 
 - [XLSTAT lista de análisis](https://www.xlstat.com/solutions/features/penalty-analysis)
 
-- [XLSTAT análisi de penalidades](https://community.lumivero.com/s/article/6651-penalty-analysis-excel-tutorial?language=en_US)
+- [XLSTAT análisis de penalidades](https://community.lumivero.com/s/article/6651-penalty-analysis-excel-tutorial?language=en_US)
+
+- [PCA separa la data en 2 para probar el modelo, correlación entre Rank y Points de de -60%](https://rpubs.com/JGC/840482)
 
 ## Links Secundarios
 
